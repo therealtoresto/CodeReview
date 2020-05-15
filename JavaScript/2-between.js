@@ -3,13 +3,15 @@
 // Implementation
 
 const between = (str, quotes) => {
-    let i = str.indexOf(quotes[0]);
+    const start = quotes[0];
+    const end = quotes[1];
+    let i = str.indexOf(start);
     if (i === -1) return '';
-    str = str.substring(i + 1);
-    if (quotes[i]) {
-        i = str.indexOf(quotes[i]);
+    const line = str.substring(i + 1);
+    if (end) {
+        i = line.indexOf(end);
         if (i === -1) return '';
-        str = str.substring(0, i);
+        return line.substring(0, i);
     }
     return str;
 };
@@ -31,7 +33,7 @@ const assert = require('assert').strict;
     assert.equal(email, expected);
 }
 {
-    const line = 'Marcus Aurelius email is <marcus@spqr.re>';
+    const line = 'Marcus Aurelius email is marcus@spqr.re';
     const email = between(line, '<>');
     const expected = '';
     assert.equal(email, expected);
